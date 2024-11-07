@@ -1,0 +1,52 @@
+.sidebar-container {
+    width: 250px;
+    transition: width 0.3s ease;
+    overflow: hidden;
+    background-color: #f4f4f4;
+    border-right: 1px solid #ddd;
+    padding: 1rem;
+    box-sizing: border-box;
+}
+
+.categories-box {
+    width: 100%;
+    max-width: 250px;
+    padding: 0.5rem;
+    color: #1C252C;
+    background-color: #E1D5D9;
+    border: none;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+}
+
+.sidebar-closed {
+    width: 0;
+    padding: 0;
+    border: none;
+}
+
+.filter-label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-size: 0.7rem;
+    color: black;
+}
+
+.enter-box {
+    width: 100%;
+    max-width: 200px;
+    padding: 0.5rem;
+    color: #1C252C;
+    background-color: #E1D5D9;
+    border: none;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+}
+
+.headers-label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-size: 0.9rem;
+    color: black;
+    font-weight: bold;
+}
