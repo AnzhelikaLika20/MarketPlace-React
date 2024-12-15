@@ -1,16 +1,17 @@
 import React, { useState } from 'react';
 import {
-    Card,
     CardContent,
     CardMedia,
-    Typography,
     Tooltip,
     Dialog,
-    DialogContent,
-    DialogTitle,
+    Typography,
 } from '@mui/material';
 import { IProductCardProps } from './types.ts';
-import './styles.css';
+import {
+    ProductCardContainer,
+    ProductTitle,
+    ProductCategory, CustomDialogContent, ProductTitleModal,
+} from './styles.ts';  // Импортируем стили
 
 const ProductCard: React.FC<IProductCardProps> = ({ product, onClick }) => {
     const [open, setOpen] = useState(false);
@@ -31,24 +32,18 @@ const ProductCard: React.FC<IProductCardProps> = ({ product, onClick }) => {
     return (
         <>
             <Tooltip title={truncateText(product.description || 'Описание отсутствует', 50)}>
-                <Card className="product-card" onClick={handleCardClick}>
+                <ProductCardContainer onClick={handleCardClick}>
                     <CardContent>
-                        <Typography variant="h6" component="div" className="product-title">
+                        <ProductTitle variant="h6">
                             {product.name}
-                        </Typography>
-                        <Typography
-                            variant="body2"
-                            color="textSecondary"
-                            component="div"
-                            className="product-category"
-                        >
+                        </ProductTitle>
+                        <ProductCategory variant="body2">
                             {product.category}
-                        </Typography>
+                        </ProductCategory>
                     </CardContent>
                     {product.image && (
                         <CardMedia
                             component="img"
-                            height="140"
                             image={product.image}
                             alt={product.name}
                             style={{ objectFit: 'cover' }}
@@ -59,23 +54,28 @@ const ProductCard: React.FC<IProductCardProps> = ({ product, onClick }) => {
                             Количество: {product.quantity} {product.unit}
                         </Typography>
                     </CardContent>
-                </Card>
+                </ProductCardContainer>
             </Tooltip>
 
             <Dialog open={open} onClose={handleClose} maxWidth="md" fullWidth>
-                <DialogTitle>{product.name}</DialogTitle>
-                <DialogContent>
-                    <Typography variant="h6">Категория: {product.category}</Typography>
-                    <Typography variant="body1" paragraph>
-                        {product.description || 'Описание отсутствует'}
+                <ProductTitleModal variant="h6">{product.name}</ProductTitleModal>
+                <CustomDialogContent>
+                    <Typography variant="h6">
+                        Категория: {product.category}
                     </Typography>
+                    <Typography variant="body1" paragraph>
+                    {product.description || 'Описание отсутствует'}
+                </Typography>
                     <Typography variant="body1">
                         Количество: {product.quantity} {product.unit}
                     </Typography>
                     {product.image && (
-                        <img src={product.image} alt={product.name} style={{ width: '100%', height: 'auto' }} />
+                        <img
+                            src={product.image}
+                            alt={product.name}
+                        />
                     )}
-                </DialogContent>
+                </CustomDialogContent>
             </Dialog>
         </>
     );

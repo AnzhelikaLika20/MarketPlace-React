@@ -5,7 +5,7 @@ export const SidebarContainer = styled('div')({
     width: 250,
     padding: '1rem',
     overflow: 'hidden',
-    backgroundColor: '#f4f4f4',
+    backgroundColor: 'white',
     borderRight: '1px solid #ddd',
     boxSizing: 'border-box',
     transition: 'width 0.3s ease',
