@@ -50,3 +50,30 @@
     color: black;
     font-weight: bold;
 }
+
+.search-container {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.enter-box {
+    flex: 1;
+    margin-right: 0.5rem;
+}
+
+.search-button {
+    padding: 0.25rem 0.5rem;
+    font-size: 0.75rem;
+    color: white;
+    background-color: purple;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s ease;
+}
+
+.search-button:hover {
+    background-color: rebeccapurple;
+}

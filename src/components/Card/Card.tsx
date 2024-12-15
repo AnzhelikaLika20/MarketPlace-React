@@ -44,14 +44,6 @@ const ProductCard: React.FC<IProductCardProps> = ({ product, onClick }) => {
                         >
                             {product.category}
                         </Typography>
-                        <Typography
-                            variant="body2"
-                            color="textSecondary"
-                            component="div"
-                            className="product-description"
-                        >
-                            {product.description || 'Описание отсутствует'}
-                        </Typography>
                     </CardContent>
                     {product.image && (
                         <CardMedia
