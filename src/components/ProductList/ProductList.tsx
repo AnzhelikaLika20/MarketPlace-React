@@ -6,7 +6,7 @@ import { ProductListContainer, PaginationContainer } from './styles.ts';
 
 const ProductList: React.FC<IProductListProps> = ({ products, onProductClick }) => {
     const [currentPage, setCurrentPage] = useState(1);
-    const itemsPerPage = 15;
+    const itemsPerPage = 16;
     const pageCount = Math.ceil(products.length / itemsPerPage);
 
     const currentProducts = products.slice(

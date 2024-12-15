@@ -1,5 +1,5 @@
 import { styled } from '@mui/system';
-import { Button } from '@mui/material';
+import {Button, FormControlLabel} from '@mui/material';
 
 export const SidebarContainer = styled('div')({
     width: 250,
@@ -18,6 +18,13 @@ export const HeadersLabel = styled('label')({
     color: 'black',
     fontWeight: 'bold',
 });
+export const CustomFormControlLabel = styled(FormControlLabel)({
+    display: 'block',
+    marginBottom: '1rem',
+    fontSize: '0.9rem',
+    color: 'black',
+    fontWeight: 'bold',
+})
 
 export const SearchContainer = styled('div')({
     display: 'flex',

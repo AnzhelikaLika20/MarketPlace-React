@@ -52,6 +52,7 @@ export const CustomDialogContent = styled(DialogContent)({
         marginTop: '1rem',
         height: '200px',
         width: '200px',
+        paddingBottom: '2rem',
     },
     height: '100%',
     maxHeight: '500px',

@@ -3,7 +3,6 @@ import {
     Drawer,
     TextField,
     Checkbox,
-    FormControlLabel,
     Autocomplete,
     IconButton,
     InputAdornment
@@ -11,10 +10,11 @@ import {
 import { Clear as ClearIcon } from '@mui/icons-material';
 import { ISidebarProps } from './types.ts';
 import {
+    CustomFormControlLabel,
     SidebarContainer,
     SearchContainer,
     SearchButton,
-    HeadersLabel
+    HeadersLabel,
 } from './styles.ts';
 
 const DrawerSidebar: React.FC<ISidebarProps> = ({ open, onClose, products, setFilteredProducts }) => {
@@ -48,7 +48,7 @@ const DrawerSidebar: React.FC<ISidebarProps> = ({ open, onClose, products, setFi
                 <HeadersLabel>Фильтры</HeadersLabel>
                 <SearchContainer>
                     <TextField
-                        label="Поиск продуктов..."
+                        label="Поиск товаров..."
                         value={searchText}
                         onChange={(e) => setSearchText(e.target.value)}
                         fullWidth
@@ -76,7 +76,7 @@ const DrawerSidebar: React.FC<ISidebarProps> = ({ open, onClose, products, setFi
                     renderInput={(params) => <TextField {...params} label="Категория" />}
                     fullWidth
                 />
-                <FormControlLabel
+                <CustomFormControlLabel
                     control={
                         <Checkbox
                             checked={inStockOnly}
@@ -85,7 +85,7 @@ const DrawerSidebar: React.FC<ISidebarProps> = ({ open, onClose, products, setFi
                     }
                     label="Только в наличии"
                 />
-                <SearchButton onClick={handleFilterApply} variant="contained" color="primary">
+                <SearchButton onClick={handleFilterApply} color="primary">
                     Поиск
                 </SearchButton>
             </SidebarContainer>
