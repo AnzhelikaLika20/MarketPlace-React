@@ -1,4 +1,4 @@
-import { styled } from '@mui/system';
+import {styled} from '@mui/system';
 import {Card, DialogContent, Typography} from '@mui/material';
 
 export const ProductCardContainer = styled(Card)({

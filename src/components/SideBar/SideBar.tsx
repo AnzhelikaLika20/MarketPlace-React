@@ -1,23 +1,10 @@
-import React, { useState } from 'react';
-import {
-    Drawer,
-    TextField,
-    Checkbox,
-    Autocomplete,
-    IconButton,
-    InputAdornment
-} from '@mui/material';
-import { Clear as ClearIcon } from '@mui/icons-material';
-import { ISidebarProps } from './types.ts';
-import {
-    CustomFormControlLabel,
-    SidebarContainer,
-    SearchContainer,
-    SearchButton,
-    HeadersLabel,
-} from './styles.ts';
+import React, {useState} from 'react';
+import {Autocomplete, Checkbox, Drawer, IconButton, InputAdornment, TextField} from '@mui/material';
+import {Clear as ClearIcon} from '@mui/icons-material';
+import {ISidebarProps} from './types.ts';
+import {CustomFormControlLabel, HeadersLabel, SearchButton, SearchContainer, SidebarContainer,} from './styles.ts';
 
-const DrawerSidebar: React.FC<ISidebarProps> = ({ open, onClose, products, setFilteredProducts }) => {
+const DrawerSidebar: React.FC<ISidebarProps> = ({open, onClose, products, setFilteredProducts}) => {
     const [searchText, setSearchText] = useState('');
     const [category, setCategory] = useState('');
     const [inStockOnly, setInStockOnly] = useState(false);
@@ -61,7 +48,7 @@ const DrawerSidebar: React.FC<ISidebarProps> = ({ open, onClose, products, setFi
                                         edge="end"
                                         disabled={!searchText}
                                     >
-                                        <ClearIcon />
+                                        <ClearIcon/>
                                     </IconButton>
                                 </InputAdornment>
                             ),
@@ -73,7 +60,7 @@ const DrawerSidebar: React.FC<ISidebarProps> = ({ open, onClose, products, setFi
                     getOptionLabel={(option) => option}
                     value={category}
                     onChange={(_, newValue) => setCategory(newValue || '')}
-                    renderInput={(params) => <TextField {...params} label="Категория" />}
+                    renderInput={(params) => <TextField {...params} label="Категория"/>}
                     fullWidth
                 />
                 <CustomFormControlLabel

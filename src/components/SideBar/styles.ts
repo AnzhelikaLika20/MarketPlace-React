@@ -1,4 +1,4 @@
-import { styled } from '@mui/system';
+import {styled} from '@mui/system';
 import {Button, FormControlLabel} from '@mui/material';
 
 export const SidebarContainer = styled('div')({

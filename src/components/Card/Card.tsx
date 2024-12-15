@@ -1,21 +1,15 @@
-import React, { useState } from 'react';
+import React, {useState} from 'react';
+import {CardContent, CardMedia, Dialog, Tooltip, Typography,} from '@mui/material';
+import {IProductCardProps} from './types.ts';
 import {
-    CardContent,
-    CardMedia,
-    Tooltip,
-    Dialog,
-    Typography,
-} from '@mui/material';
-import { IProductCardProps } from './types.ts';
-import {
-    ProductCardContainer,
-    ProductTitle,
-    ProductCategory,
     CustomDialogContent,
+    ProductCardContainer,
+    ProductCategory,
+    ProductTitle,
     ProductTitleModal,
-} from './styles.ts';  // Импортируем стили
+} from './styles.ts'; // Импортируем стили
 
-const ProductCard: React.FC<IProductCardProps> = ({ product, onClick }) => {
+const ProductCard: React.FC<IProductCardProps> = ({product, onClick}) => {
     const [open, setOpen] = useState(false);
 
     const handleCardClick = () => {
@@ -48,7 +42,7 @@ const ProductCard: React.FC<IProductCardProps> = ({ product, onClick }) => {
                             component="img"
                             image={product.image}
                             alt={product.name}
-                            style={{ objectFit: 'cover' }}
+                            style={{objectFit: 'cover'}}
                         />
                     )}
                     <CardContent>
@@ -65,7 +59,7 @@ const ProductCard: React.FC<IProductCardProps> = ({ product, onClick }) => {
                     <Typography variant="h6">
                         Категория: {product.category}
                     </Typography>
-                    <Typography variant="body1"paragraph>
+                    <Typography variant="body1" paragraph>
                         {product.description || 'Описание отсутствует'}
                     </Typography>
                     <Typography variant="body1">
