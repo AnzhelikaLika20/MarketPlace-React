@@ -6,7 +6,7 @@ import {products} from "./data/products.ts";
 
 const App: React.FC = () => {
     const [sidebarOpen, setSidebarOpen] = useState(false);
-    const [filteredProducts, setFilteredProducts] = useState(products); // Изначально все продукты
+    const [filteredProducts, setFilteredProducts] = useState(products);
 
     const toggleSidebar = () => setSidebarOpen(!sidebarOpen);
 
@@ -16,13 +16,13 @@ const App: React.FC = () => {
                 open={sidebarOpen}
                 onClose={() => setSidebarOpen(false)}
                 products={products}
-                setFilteredProducts={setFilteredProducts} // Передаем функцию для обновления отфильтрованных продуктов
+                setFilteredProducts={setFilteredProducts}
             />
             <div style={{flex: 1}}>
                 <NavigationBar toggleSidebar={toggleSidebar}/>
                 <div style={{padding: '1rem'}}>
                     <ProductList products={filteredProducts} onProductClick={() => {
-                    }}/> {/* Передаем отфильтрованные продукты */}
+                    }}/>
                 </div>
             </div>
         </div>
