@@ -10,7 +10,7 @@ export const products: Product[] = [
         "name": "Product 1",
         "description": "This is a short description.",
         "category": "Category A",
-        "quantity": 5,
+        "quantity": 0,
         "unit": "pcs",
         "image": Image1
     },
