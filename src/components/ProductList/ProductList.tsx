@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import ProductCard from '../Card/Card';
 import { Pagination } from '@mui/material';
-import './styles.css';
 import { IProductListProps } from './types.ts';
+import { ProductListContainer, PaginationContainer } from './styles.ts';
 
 const ProductList: React.FC<IProductListProps> = ({ products, onProductClick }) => {
     const [currentPage, setCurrentPage] = useState(1);
@@ -20,19 +20,19 @@ const ProductList: React.FC<IProductListProps> = ({ products, onProductClick }) 
 
     return (
         <div>
-            <div className="product-list">
+            <ProductListContainer>
                 {currentProducts.map((product) => (
                     <ProductCard key={product.id} product={product} onClick={() => onProductClick(product)} />
                 ))}
-            </div>
-            <div style={{ marginTop: '3rem', display: 'flex', justifyContent: 'center' }}>
+            </ProductListContainer>
+            <PaginationContainer>
                 <Pagination
                     count={pageCount}
                     page={currentPage}
                     onChange={handlePageChange}
                     color="secondary"
                 />
-            </div>
+            </PaginationContainer>
         </div>
     );
 };

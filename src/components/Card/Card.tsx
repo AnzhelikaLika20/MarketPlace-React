@@ -10,7 +10,9 @@ import { IProductCardProps } from './types.ts';
 import {
     ProductCardContainer,
     ProductTitle,
-    ProductCategory, CustomDialogContent, ProductTitleModal,
+    ProductCategory,
+    CustomDialogContent,
+    ProductTitleModal,
 } from './styles.ts';  // Импортируем стили
 
 const ProductCard: React.FC<IProductCardProps> = ({ product, onClick }) => {
@@ -50,7 +52,7 @@ const ProductCard: React.FC<IProductCardProps> = ({ product, onClick }) => {
                         />
                     )}
                     <CardContent>
-                        <Typography variant="body2" component="div">
+                        <Typography variant="body2">
                             Количество: {product.quantity} {product.unit}
                         </Typography>
                     </CardContent>
@@ -63,9 +65,9 @@ const ProductCard: React.FC<IProductCardProps> = ({ product, onClick }) => {
                     <Typography variant="h6">
                         Категория: {product.category}
                     </Typography>
-                    <Typography variant="body1" paragraph>
-                    {product.description || 'Описание отсутствует'}
-                </Typography>
+                    <Typography variant="body1"paragraph>
+                        {product.description || 'Описание отсутствует'}
+                    </Typography>
                     <Typography variant="body1">
                         Количество: {product.quantity} {product.unit}
                     </Typography>

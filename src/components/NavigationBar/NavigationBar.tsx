@@ -1,18 +1,18 @@
-import './styles.css';
-import {INavigationBarProps} from "./types.ts";
+import React from 'react';
+import { INavigationBarProps } from "./types.ts";
+import { Nav, NavItem } from './styles.ts';
 
-
-const NavigationBar = ({ toggleSidebar }: INavigationBarProps) => {
+const NavigationBar: React.FC<INavigationBarProps> = ({ toggleSidebar }) => {
     return (
-        <nav className="nav">
-            <div className="nav-item" onClick={toggleSidebar}>☰</div>
+        <Nav>
+            <NavItem onClick={toggleSidebar}>☰</NavItem>
             <div>
-                <span className="nav-item">Товары</span>
-                <span className="nav-item">Склады</span>
-                <span className="nav-item">О системе</span>
-                <span className="nav-item">Личная страница пользователя</span>
+                <NavItem>Товары</NavItem>
+                <NavItem>Склады</NavItem>
+                <NavItem>О системе</NavItem>
+                <NavItem>Личная страница пользователя</NavItem>
             </div>
-        </nav>
+        </Nav>
     );
 };
 
