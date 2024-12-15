@@ -7,7 +7,9 @@ import {
     ProductCategory,
     ProductTitle,
     ProductTitleModal,
-} from './styles.ts'; // Импортируем стили
+} from './styles.ts';
+
+const PlaceholderImagePath = "/src/assets/placeholder.png"
 
 const ProductCard: React.FC<IProductCardProps> = ({product, onClick}) => {
     const [open, setOpen] = useState(false);
@@ -37,14 +39,11 @@ const ProductCard: React.FC<IProductCardProps> = ({product, onClick}) => {
                             {product.category}
                         </ProductCategory>
                     </CardContent>
-                    {product.image && (
-                        <CardMedia
-                            component="img"
-                            image={product.image}
-                            alt={product.name}
-                            style={{objectFit: 'cover'}}
-                        />
-                    )}
+                    <CardMedia
+                        component="img"
+                        image={product.image || PlaceholderImagePath}
+                        alt={product.name}
+                    />
                     <CardContent>
                         <Typography variant="body2">
                             Количество: {product.quantity} {product.unit}

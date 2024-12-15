@@ -29,7 +29,7 @@ export const products: Product[] = [
         "description": "Extremely detailed analysis of Product 3 including its origin, uses, best before date, materials used in manufacturing, compliant standards, customer reviews, expert opinions and comparison with other similar products in the market. This product offers exceptional quality and value.",
         "category": "Category B",
         "quantity": 10,
-        "unit": "pcs"
+        "unit": "pcs",
     },
     {
         "id": 4,
@@ -37,7 +37,7 @@ export const products: Product[] = [
         "description": "A long and comprehensive description that includes every possible detail you might need to know about Product 4. This includes technical specifications, manufacturing processes, guidelines for usage, safety instructions, warranty information, and tips for maintenance and care to ensure product longevity.",
         "category": "Category C",
         "quantity": 7,
-        "unit": "pcs"
+        "unit": "pcs",
     },
     {
         "id": 5,
@@ -61,7 +61,7 @@ export const products: Product[] = [
         "description": "Essentials on product 7.",
         "category": "Category B",
         "quantity": 0,
-        "unit": "pcs"
+        "unit": "pcs",
     },
     {
         "id": 8,
@@ -78,7 +78,7 @@ export const products: Product[] = [
         "description": "Insights on product 9.",
         "category": "Category A",
         "quantity": 6,
-        "unit": "pcs"
+        "unit": "pcs",
     },
     {
         "id": 10,
@@ -86,7 +86,7 @@ export const products: Product[] = [
         "description": "An extensive and thorough description intended to give you a close look at Product 10, its background, the technology behind it, user guide with do's and don'ts, benefits of using it over competitors, and much more detailed insight, aiming to provide a 360-degree view of the product.",
         "category": "Category D",
         "quantity": 15,
-        "unit": "pcs"
+        "unit": "pcs",
     },
     {
         "id": 11,
@@ -126,7 +126,7 @@ export const products: Product[] = [
         "description": "Product 15 description.",
         "category": "Category D",
         "quantity": 7,
-        "unit": "pcs"
+        "unit": "pcs",
     },
     {
         "id": 16,
@@ -166,6 +166,6 @@ export const products: Product[] = [
         "description": "Learn every little detail about Product 20 in this extensive document that talks about its design, the innovation it brings to the market, its certification with international standards, feedback from industry experts, and personal testimonials from thousands of satisfied customers around the globe.",
         "category": "Category D",
         "quantity": 5,
-        "unit": "pcs"
+        "unit": "pcs",
     }
 ];
