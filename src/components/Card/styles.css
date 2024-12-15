@@ -32,9 +32,10 @@
 }
 
 .product-description {
+    white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    white-space: nowrap;
+    margin-top: 0.25rem;
 }
 
 .product-title, .product-category {
