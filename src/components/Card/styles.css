@@ -21,3 +21,25 @@
     color: black;
     -webkit-line-clamp: 3;
 }
+
+.product-card {
+    transition: transform 0.3s ease-in-out;
+    cursor: pointer;
+}
+
+.product-card:hover {
+    transform: scale(1.1);
+}
+
+.product-description {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.product-title, .product-category {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin-bottom: 0.5rem;
+}
