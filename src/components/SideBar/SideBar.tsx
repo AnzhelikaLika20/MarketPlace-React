@@ -1,15 +1,18 @@
-import React, {useState} from 'react';
-import {Autocomplete, Checkbox, Drawer, IconButton, InputAdornment, TextField} from '@mui/material';
-import {Clear as ClearIcon} from '@mui/icons-material';
-import {ISidebarProps} from './types.ts';
-import {CustomFormControlLabel, HeadersLabel, SearchButton, SearchContainer, SidebarContainer,} from './styles.ts';
+import React, { useState, useMemo } from 'react';
+import { Autocomplete, Checkbox, Drawer, IconButton, InputAdornment, TextField } from '@mui/material';
+import { Clear as ClearIcon } from '@mui/icons-material';
+import { ISidebarProps } from './types.ts';
+import { CustomFormControlLabel, HeadersLabel, SearchButton, SearchContainer, SidebarContainer } from './styles.ts';
 
-const DrawerSidebar: React.FC<ISidebarProps> = ({open, onClose, products, setFilteredProducts}) => {
+const DrawerSidebar: React.FC<ISidebarProps> = ({ open, onClose, products, setFilteredProducts }) => {
     const [searchText, setSearchText] = useState('');
     const [category, setCategory] = useState('');
     const [inStockOnly, setInStockOnly] = useState(false);
 
-    const categories = ['Category A', 'Category B', 'Category C'];
+    const categories = useMemo(() => {
+        const uniqueCategories = new Set(products.map(product => product.category));
+        return Array.from(uniqueCategories);
+    }, [products]);
 
     const handleFilterApply = () => {
         const searchRegex = new RegExp(searchText, 'i');
@@ -18,7 +21,7 @@ const DrawerSidebar: React.FC<ISidebarProps> = ({open, onClose, products, setFil
                 searchText === '' ||
                 searchRegex.test(product.name) ||
                 searchRegex.test(product.description);
-            const matchesCategory = !categories.includes(category) || product.category === category;
+            const matchesCategory = category === '' || product.category === category;
             const matchesStock = !inStockOnly || product.quantity > 0;
             return matchesSearch && matchesCategory && matchesStock;
         });
@@ -48,7 +51,7 @@ const DrawerSidebar: React.FC<ISidebarProps> = ({open, onClose, products, setFil
                                         edge="end"
                                         disabled={!searchText}
                                     >
-                                        <ClearIcon/>
+                                        <ClearIcon />
                                     </IconButton>
                                 </InputAdornment>
                             ),
@@ -60,7 +63,7 @@ const DrawerSidebar: React.FC<ISidebarProps> = ({open, onClose, products, setFil
                     getOptionLabel={(option) => option}
                     value={category}
                     onChange={(_, newValue) => setCategory(newValue || '')}
-                    renderInput={(params) => <TextField {...params} label="Категория"/>}
+                    renderInput={(params) => <TextField {...params} label="Категория" />}
                     fullWidth
                 />
                 <CustomFormControlLabel
@@ -70,8 +73,7 @@ const DrawerSidebar: React.FC<ISidebarProps> = ({open, onClose, products, setFil
                             onChange={(e) => setInStockOnly(e.target.checked)}
                         />
                     }
-                    label="Только в наличии"
-                />
+                    label="Только в наличии"/>
                 <SearchButton onClick={handleFilterApply} color="primary">
                     Поиск
                 </SearchButton>
