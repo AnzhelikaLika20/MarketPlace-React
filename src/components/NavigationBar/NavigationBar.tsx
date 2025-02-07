@@ -10,14 +10,17 @@ const NavigationBar: React.FC<INavigationBarProps> = ({toggleSidebar}) => {
         navigate(`/categories`);
     };
 
+    const handleGoodsClick = () => {
+        navigate(`/`);
+    };
+
     return (
         <Nav>
             <NavItem onClick={toggleSidebar}>☰</NavItem>
             <div>
-                <NavItem>Товары</NavItem>
+                <NavItem onClick={handleGoodsClick}>Товары</NavItem>
                 <NavItem>Склады</NavItem>
-                <NavItem onClick={handleCategoriesClick}
-                         style={{textDecoration: 'none', color: 'inherit'}}>Категории</NavItem>
+                <NavItem onClick={handleCategoriesClick}>Категории</NavItem>
                 <NavItem>О системе</NavItem>
                 <NavItem>Личная страница пользователя</NavItem>
             </div>

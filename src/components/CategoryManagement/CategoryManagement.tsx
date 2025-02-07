@@ -1,30 +1,48 @@
 import React, {useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
-import {addCategory, Category, deleteCategory, updateCategory} from '../../types/Category.ts';
-import {Box, Button, IconButton, List, ListItem, ListItemText, Modal, TextField, Typography} from '@mui/material';
+import {addCategory, Category, deleteCategory, updateCategory} from '../../types/Category';
+import {
+    Box,
+    Button,
+    IconButton,
+    Modal,
+    Paper,
+    Table,
+    TableBody,
+    TableCell,
+    TableContainer,
+    TableHead,
+    TableRow,
+    TextField,
+    Typography
+} from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
-import {RootState} from "../../app/store.ts";
+import {RootState} from "../../app/store";
 
 const CategoryManagement: React.FC = () => {
-    const [isModalOpen, setModalOpen] = useState(false);
+    const [isModalOpen, setModalOpen] = useState<boolean>(false);
     const [currentCategory, setCurrentCategory] = useState<Category | null>(null);
-    const [name, setName] = useState('');
+    const [name, setName] = useState<string>('');
     const dispatch = useDispatch();
     const categories = useSelector((state: RootState) => state.categories.categories);
 
-    const openModal = (category: Category | null = null) => {
+    const openModal = (category: Category | null = null): void => {
         setCurrentCategory(category);
         setName(category ? category.name : '');
         setModalOpen(true);
     };
 
-    const closeModal = () => {
+    const closeModal = (): void => {
         setModalOpen(false);
         setCurrentCategory(null);
     };
 
-    const handleAddOrEdit = () => {
+    const handleAddOrEdit = (): void => {
+        if (!name.trim()) {
+            alert('Название категории не может быть пустым');
+            return;
+        }
         if (currentCategory) {
             dispatch(updateCategory({...currentCategory, name}));
         } else {
@@ -33,43 +51,60 @@ const CategoryManagement: React.FC = () => {
         closeModal();
     };
 
-    const handleDelete = (id: string) => {
+    const handleDelete = (id: string): void => {
         if (window.confirm('Вы уверены, что хотите удалить эту категорию?')) {
             dispatch(deleteCategory(id));
         }
     };
 
     return (
-        <Box>
+        <Box sx={{p: 3}}>
             <Typography variant="h4" gutterBottom>Управление категориями</Typography>
-            <Button variant="contained" onClick={() => openModal()} color="primary">
+            <Button variant="contained" onClick={() => openModal()} color="primary" sx={{mb: 2}}>
                 Добавить категорию
             </Button>
 
-            <List>
-                {categories.map(category => (
-                    <ListItem
-
-
-                        key={category.id} secondaryAction={
-                        <>
-                            <IconButton edge="end" onClick={() => openModal(category)}>
-                                <EditIcon/>
-                            </IconButton>
-                            <IconButton edge="end" onClick={() => handleDelete(category.id)}>
-                                <DeleteIcon/>
-                            </IconButton>
-                        </>
-                    }>
-                        <ListItemText primary={category.name}/>
-                    </ListItem>
-                ))}
-            </List>
+            <TableContainer component={Paper}>
+                <Table>
+                    <TableHead>
+                        <TableRow>
+                            <TableCell>Название категории</TableCell>
+                            <TableCell align="right">Действия</TableCell>
+                        </TableRow>
+                    </TableHead>
+                    <TableBody>
+                        {categories.length > 0 ? (
+                            categories.map((category) => (
+                                <TableRow key={category.id}>
+                                    <TableCell component="th" scope="row">
+                                        {category.name}
+                                    </TableCell>
+                                    <TableCell align="right">
+                                        <IconButton edge="end" onClick={() => openModal(category)}>
+                                            <EditIcon/>
+                                        </IconButton>
+                                        <IconButton edge="end" onClick={() => handleDelete(category.id)}>
+                                            <DeleteIcon/>
+                                        </IconButton>
+                                    </TableCell>
+                                </TableRow>
+                            ))
+                        ) : (
+                            <TableRow>
+                                <TableCell colSpan={2} align="center">
+                                    Нет категорий
+                                </TableCell>
+                            </TableRow>
+                        )}
+                    </TableBody>
+                </Table>
+            </TableContainer>
 
             <Modal open={isModalOpen} onClose={closeModal}>
                 <Box sx={{p: 4, bgcolor: 'background.paper', margin: 'auto', maxWidth: 400, mt: 8}}>
-                    <Typography variant="h6"
-                                gutterBottom>{currentCategory ? 'Редактировать категорию' : 'Новая категория'}</Typography>
+                    <Typography variant="h6" gutterBottom>
+                        {currentCategory ? 'Редактировать категорию' : 'Новая категория'}
+                    </Typography>
                     <TextField
                         fullWidth
                         label="Имя категории"
