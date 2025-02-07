@@ -8,7 +8,7 @@ import {Product} from "../../types/Product.ts";
 
 const ProductDetails: React.FC = () => {
     const {id} = useParams<{ id: string }>();
-    const navigate = useNavigate(); // Используем useNavigate для навигации
+    const navigate = useNavigate();
     const [isEditModalOpen, setEditModalOpen] = useState(false);
     const dispatch = useDispatch();
     const product = useSelector(selectProductById(id!));
@@ -24,7 +24,7 @@ const ProductDetails: React.FC = () => {
     const handleDelete = () => {
         if (window.confirm('Вы уверены, что хотите удалить этот товар?')) {
             dispatch(deleteProduct(id!));
-            navigate('/'); // Используем navigate для перенаправления
+            navigate('/');
         }
     };
 

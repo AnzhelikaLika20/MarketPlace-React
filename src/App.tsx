@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {BrowserRouter as Router, Route, Routes, useLocation} from 'react-router-dom';
 import {useDispatch} from "react-redux";
-import {Box, Button, Container} from '@mui/material'; // Используем Material-UI для компоновки
+import {Box, Button, Container} from '@mui/material';
 import ProductList from './components/ProductList/ProductList';
 import ProductDetails from './components/ProductDetails/ProductDetails.tsx';
 import Sidebar from './components/SideBar/SideBar';
