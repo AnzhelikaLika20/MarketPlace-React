@@ -14,6 +14,10 @@ const NavigationBar: React.FC<INavigationBarProps> = ({toggleSidebar}) => {
         navigate(`/`);
     };
 
+    const handleUserProfileClick = () => {
+        navigate(`/user-profile`);
+    };
+
     return (
         <Nav>
             <NavItem onClick={toggleSidebar}>☰</NavItem>
@@ -22,7 +26,7 @@ const NavigationBar: React.FC<INavigationBarProps> = ({toggleSidebar}) => {
                 <NavItem>Склады</NavItem>
                 <NavItem onClick={handleCategoriesClick}>Категории</NavItem>
                 <NavItem>О системе</NavItem>
-                <NavItem>Личная страница пользователя</NavItem>
+                <NavItem onClick={handleUserProfileClick}>Профиль пользователя</NavItem>
             </div>
         </Nav>
     );
