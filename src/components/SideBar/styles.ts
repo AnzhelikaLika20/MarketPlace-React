@@ -36,13 +36,13 @@ export const SearchButton = styled(Button)({
     padding: '0.25rem 0.5rem',
     fontSize: '0.75rem',
     color: 'white',
-    backgroundColor: 'purple',
+    backgroundColor: '#283570',
     border: 'none',
     borderRadius: '6px',
     cursor: 'pointer',
     boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',
     transition: 'background-color 0.3s ease',
     '&:hover': {
-        backgroundColor: 'rebeccapurple',
+        backgroundColor: '#283593',
     },
 });
