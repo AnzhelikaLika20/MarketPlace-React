@@ -25,26 +25,6 @@ const App: React.FC = () => {
 
     const dispatch = useDispatch();
     useEffect(() => {
-        const products = [
-            {
-                id: "1",
-                name: 'Test Product',
-                category: 'Test Category',
-                description: 'This is a test product',
-                quantity: 100,
-                unit: 'pcs',
-                price: 200,
-            },
-            {
-                id: "2",
-                name: 'Wow Product',
-                category: 'Wow Category',
-                description: 'This is wow test product',
-                quantity: 50,
-                unit: 'pcs',
-                price: 150,
-            }
-        ];
 
         products.forEach(product => {
             dispatch(addProduct(product));
