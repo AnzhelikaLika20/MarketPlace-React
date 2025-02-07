@@ -29,23 +29,55 @@ const EditProductModal: React.FC<EditProductModalProps> = ({open, product, handl
             <DialogContent>
                 <form onSubmit={handleSubmit} noValidate>
                     <TextField
+                        label="Название"
+                        name="name"
                         fullWidth
                         margin="normal"
-                        name="name"
-                        label="Имя товара"
-                        value={formValues.name}
                         onChange={handleChange}
-                        variant="outlined"
+                        value={formValues.name}
                     />
                     <TextField
+                        label="Категория"
+                        name="category"
                         fullWidth
                         margin="normal"
-                        name="price"
-                        label="Цена"
-                        type="number"
-                        value={formValues.price}
                         onChange={handleChange}
-                        variant="outlined"
+                        value={formValues.name}
+                    />
+                    <TextField
+                        label="Описание"
+                        name="description"
+                        fullWidth
+                        margin="normal"
+                        onChange={handleChange}
+                        value={formValues.description}
+                    />
+                    <TextField
+                        label="Количество"
+                        name="quantity"
+                        type="number"
+                        fullWidth
+                        margin="normal"
+                        onChange={handleChange}
+                        value={formValues.quantity}
+                    />
+                    <TextField
+                        label="Единица измерения"
+                        name="unit"
+                        type="number"
+                        fullWidth
+                        margin="normal"
+                        onChange={handleChange}
+                        value={formValues.unit}
+                    />
+                    <TextField
+                        label="Цена"
+                        name="price"
+                        type="number"
+                        fullWidth
+                        margin="normal"
+                        onChange={handleChange}
+                        value={formValues.price}
                     />
                 </form>
             </DialogContent>
