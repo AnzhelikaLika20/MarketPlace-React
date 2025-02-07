@@ -3,16 +3,15 @@ import ProductCard from '../Card/Card';
 import {Pagination} from '@mui/material';
 import {IProductListProps} from './types.ts';
 import {PaginationContainer, ProductListContainer} from './styles.ts';
+import {useSelector} from "react-redux";
+import {selectAllProducts} from '../../types/Product.ts';
 
-const ProductList: React.FC<IProductListProps> = ({products, onProductClick}) => {
+const ProductList: React.FC<IProductListProps> = ({onProductClick}) => {
     const [currentPage, setCurrentPage] = useState(1);
+    const products = useSelector(selectAllProducts);
+
     const itemsPerPage = 16;
     const pageCount = Math.ceil(products.length / itemsPerPage);
-
-    const currentProducts = products.slice(
-        (currentPage - 1) * itemsPerPage,
-        currentPage * itemsPerPage
-    );
 
     const handlePageChange = (_: React.ChangeEvent<unknown>, page: number) => {
         setCurrentPage(page);
@@ -21,7 +20,7 @@ const ProductList: React.FC<IProductListProps> = ({products, onProductClick}) =>
     return (
         <div>
             <ProductListContainer>
-                {currentProducts.map((product) => (
+                {products.map((product) => (
                     <ProductCard key={product.id} product={product} onClick={() => onProductClick(product)}/>
                 ))}
             </ProductListContainer>

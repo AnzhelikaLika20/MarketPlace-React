@@ -12,6 +12,7 @@ import {
 const PlaceholderImagePath = "/src/assets/placeholder.png"
 
 const ProductCard: React.FC<IProductCardProps> = ({product, onClick}) => {
+
     const [open, setOpen] = useState(false);
 
     const handleCardClick = () => {
