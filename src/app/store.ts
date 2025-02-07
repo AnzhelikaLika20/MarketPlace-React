@@ -1,9 +1,11 @@
 import {configureStore} from '@reduxjs/toolkit';
 import productsReducer from '../types/Product.ts';
+import categoryReducer from '../types/Category.ts';
 
 export const store = configureStore({
     reducer: {
         products: productsReducer,
+        categories: categoryReducer
     },
 });
 

@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import {useNavigate, useParams} from 'react-router-dom';
 import {useDispatch, useSelector} from 'react-redux';
-import {Product, removeProduct, selectProductById, updateProduct} from '../../types/Product';
+import {deleteProduct, Product, selectProductById, updateProduct} from '../../types/Product';
 import EditProductModal from '../EditProductModal/EditProductModal';
 import {Box, Button, Paper, Typography} from '@mui/material';
 
@@ -22,7 +22,7 @@ const ProductDetails: React.FC = () => {
 
     const handleDelete = () => {
         if (window.confirm('Вы уверены, что хотите удалить этот товар?')) {
-            dispatch(removeProduct(id!));
+            dispatch(deleteProduct(id!));
             navigate('/'); // Используем navigate для перенаправления
         }
     };

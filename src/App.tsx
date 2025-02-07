@@ -8,6 +8,7 @@ import NavigationBar from './components/NavigationBar/NavigationBar';
 import AddProductModal from './components/AddProductModal/AddProductModal';
 import {products} from "./data/products";
 import {addProduct} from "./types/Product";
+import CategoryManagement from "./components/CategoryManagement/CategoryManagement.tsx";
 
 const App: React.FC = () => {
     const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -52,6 +53,7 @@ const App: React.FC = () => {
                     <Routes>
                         <Route path="/" element={<ProductList products={filteredProducts}/>}/>
                         <Route path="/products/:id" element={<ProductDetails/>}/>
+                        <Route path="/categories" element={<CategoryManagement/>}/>
                     </Routes>
                 </div>
             </div>
