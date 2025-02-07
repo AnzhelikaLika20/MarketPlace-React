@@ -47,7 +47,6 @@ const EditProductModal: React.FC<EditProductModalProps> = ({open, product, handl
                         onChange={handleChange}
                         variant="outlined"
                     />
-                    {/* Добавьте другие поля, если необходимо */}
                 </form>
             </DialogContent>
             <DialogActions>

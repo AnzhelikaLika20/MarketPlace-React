@@ -1,12 +1,13 @@
 import React, {useState} from 'react';
-import {useParams} from 'react-router-dom';
+import {useNavigate, useParams} from 'react-router-dom';
 import {useDispatch, useSelector} from 'react-redux';
-import {Product, selectProductById, updateProduct} from '../../types/Product';
-import EditProductModal from "../EditProductModal/EditProductModal.tsx";
+import {Product, removeProduct, selectProductById, updateProduct} from '../../types/Product';
+import EditProductModal from '../EditProductModal/EditProductModal';
 import {Box, Button, Paper, Typography} from '@mui/material';
 
 const ProductDetails: React.FC = () => {
     const {id} = useParams<{ id: string }>();
+    const navigate = useNavigate(); // Используем useNavigate для навигации
     const [isEditModalOpen, setEditModalOpen] = useState(false);
     const dispatch = useDispatch();
     const product = useSelector(selectProductById(id!));
@@ -17,6 +18,13 @@ const ProductDetails: React.FC = () => {
     const handleSave = (updatedProduct: Product) => {
         dispatch(updateProduct(updatedProduct));
         setEditModalOpen(false);
+    };
+
+    const handleDelete = () => {
+        if (window.confirm('Вы уверены, что хотите удалить этот товар?')) {
+            dispatch(removeProduct(id!));
+            navigate('/'); // Используем navigate для перенаправления
+        }
     };
 
     if (!product) {
@@ -40,6 +48,9 @@ const ProductDetails: React.FC = () => {
             </Box>
             <Button variant="contained" color="primary" onClick={handleEditClick}>
                 Редактировать товар
+            </Button>
+            <Button variant="contained" color="error" onClick={handleDelete} sx={{ml: 2}}>
+                Удалить товар
             </Button>
             <EditProductModal
                 open={isEditModalOpen}
