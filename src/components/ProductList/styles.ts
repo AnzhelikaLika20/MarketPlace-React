@@ -6,7 +6,7 @@ export const ProductListContainer = styled('div')({
     gap: '1rem',
     justifyContent: 'center',
     width: '100%',
-    paddingTop: '3rem',
+    paddingTop: '1rem',
 
     '> div': {
         flex: '1 1 calc(100% / 3 - 1rem)',

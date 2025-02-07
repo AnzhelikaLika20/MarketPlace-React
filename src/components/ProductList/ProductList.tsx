@@ -1,18 +1,15 @@
 import React from 'react';
 import ProductCard from '../Card/Card';
-import {useSelector} from 'react-redux';
-import {selectAllProducts} from '../../store/modules/products/ProductSlice.ts';
 import {useNavigate} from 'react-router-dom';
 import {ProductListContainer} from './styles';
 import {Box, Pagination} from '@mui/material';
 import {IProductListProps} from "./types.ts";
 
-const ProductList: React.FC<IProductListProps> = () => {
-    const products = useSelector(selectAllProducts);
+const ProductList: React.FC<IProductListProps> = ({products}) => {
     const navigate = useNavigate();
 
     const [currentPage, setCurrentPage] = React.useState(1);
-    const itemsPerPage = 16;
+    const itemsPerPage = 15;
     const pageCount = Math.ceil(products.length / itemsPerPage);
 
     const displayedProducts = products.slice(

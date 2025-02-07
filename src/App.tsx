@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {BrowserRouter as Router, Route, Routes, useLocation} from 'react-router-dom';
 import {useDispatch} from "react-redux";
+import {Box, Button, Container} from '@mui/material'; // Используем Material-UI для компоновки
 import ProductList from './components/ProductList/ProductList';
 import ProductDetails from './components/ProductDetails/ProductDetails.tsx';
 import Sidebar from './components/SideBar/SideBar';
@@ -25,31 +26,27 @@ const App: React.FC = () => {
         });
     }, [dispatch]);
 
-    const handleModalOpen = () => {
-        setIsCreateModalOpen(true);
-    };
+    const handleModalOpen = () => setIsCreateModalOpen(true);
 
-    const handleCreateModalClose = () => {
-        setIsCreateModalOpen(false);
-    };
+    const handleCreateModalClose = () => setIsCreateModalOpen(false);
 
     const toggleSidebar = () => setSidebarOpen(!sidebarOpen);
 
     return (
-        <div style={{display: 'flex'}}>
+        <Box sx={{display: 'flex'}}>
             <Sidebar
                 open={sidebarOpen}
                 onClose={() => setSidebarOpen(false)}
                 products={products}
                 setFilteredProducts={setFilteredProducts}
             />
-            <div style={{flex: 1}}>
+            <Box sx={{flex: 1, display: 'flex', flexDirection: 'column'}}>
                 <NavigationBar toggleSidebar={toggleSidebar}/>
-                <div style={{padding: '1rem'}}>
+                <Container sx={{padding: '3rem', flex: 1}}>
                     {location.pathname === '/' && (
-                        <button onClick={handleModalOpen} style={{marginBottom: '1rem'}}>
+                        <Button variant="contained" color="primary" onClick={handleModalOpen} sx={{mb: 2}}>
                             Добавить товар
-                        </button>
+                        </Button>
                     )}
                     <Routes>
                         <Route path="/" element={<ProductList products={filteredProducts}/>}/>
@@ -57,10 +54,10 @@ const App: React.FC = () => {
                         <Route path="/categories" element={<CategoryManagement/>}/>
                         <Route path="/user-profile" element={<UserProfile/>}/>
                     </Routes>
-                </div>
-            </div>
+                </Container>
+            </Box>
             <AddProductModal open={isCreateModalOpen} handleClose={handleCreateModalClose}/>
-        </div>
+        </Box>
     );
 };
 

@@ -3,7 +3,6 @@ import {Card, DialogContent, Typography} from '@mui/material';
 
 export const ProductCardContainer = styled(Card)({
     width: 200,
-    padding: '1rem',
     border: '1px solid #E1D5D9',
     borderRadius: '8px',
     backgroundColor: 'white',
