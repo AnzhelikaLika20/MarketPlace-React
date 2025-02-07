@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
-import {addCategory, Category, deleteCategory, updateCategory} from '../../types/Category';
+import {addCategory, deleteCategory, updateCategory} from '../../store/modules/categories/CategorySlice.ts';
 import {
     Box,
     Button,
@@ -18,7 +18,8 @@ import {
 } from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
-import {RootState} from "../../app/store";
+import {RootState} from "../../store/store";
+import {Category} from "../../types/Category.ts";
 
 const CategoryManagement: React.FC = () => {
     const [isModalOpen, setModalOpen] = useState<boolean>(false);

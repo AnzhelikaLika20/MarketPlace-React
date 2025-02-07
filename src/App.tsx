@@ -7,7 +7,7 @@ import Sidebar from './components/SideBar/SideBar';
 import NavigationBar from './components/NavigationBar/NavigationBar';
 import AddProductModal from './components/AddProductModal/AddProductModal';
 import {products} from "./data/products";
-import {addProduct} from "./types/Product";
+import {addProduct} from "./store/modules/products/ProductSlice.ts";
 import CategoryManagement from "./components/CategoryManagement/CategoryManagement.tsx";
 import UserProfile from "./components/UserProfile/UserProfile.tsx";
 

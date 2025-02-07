@@ -1,7 +1,7 @@
 import React from 'react';
 import ProductCard from '../Card/Card';
 import {useSelector} from 'react-redux';
-import {selectAllProducts} from '../../types/Product';
+import {selectAllProducts} from '../../store/modules/products/ProductSlice.ts';
 import {useNavigate} from 'react-router-dom';
 import {ProductListContainer} from './styles';
 import {Box, Pagination} from '@mui/material';

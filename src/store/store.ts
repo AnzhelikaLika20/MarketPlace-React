@@ -1,6 +1,6 @@
 import {configureStore} from '@reduxjs/toolkit';
-import productsReducer from '../types/Product.ts';
-import categoryReducer from '../types/Category.ts';
+import productsReducer from '../store/modules/products/ProductSlice.ts';
+import categoryReducer from '../store/modules/categories/CategorySlice.ts';
 
 export const store = configureStore({
     reducer: {
@@ -9,6 +9,4 @@ export const store = configureStore({
     },
 });
 
-// Выведем тип хранилища для использования в хуках
 export type RootState = ReturnType<typeof store.getState>;
-export type AppDispatch = typeof store.dispatch;

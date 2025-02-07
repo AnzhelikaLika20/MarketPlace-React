@@ -1,9 +1,10 @@
 import React, {useState} from 'react';
 import {useNavigate, useParams} from 'react-router-dom';
 import {useDispatch, useSelector} from 'react-redux';
-import {deleteProduct, Product, selectProductById, updateProduct} from '../../types/Product';
+import {deleteProduct, selectProductById, updateProduct} from '../../store/modules/products/ProductSlice.ts';
 import EditProductModal from '../EditProductModal/EditProductModal';
 import {Box, Button, Paper, Typography} from '@mui/material';
+import {Product} from "../../types/Product.ts";
 
 const ProductDetails: React.FC = () => {
     const {id} = useParams<{ id: string }>();

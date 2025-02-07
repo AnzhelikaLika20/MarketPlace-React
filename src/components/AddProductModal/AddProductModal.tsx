@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import {useDispatch} from 'react-redux';
 import {Button, Dialog, DialogActions, DialogContent, DialogTitle, TextField} from '@mui/material';
-import {addProduct} from '../../types/Product.ts';
+import {addProduct} from '../../store/modules/products/ProductSlice.ts';
 import {v4 as uuidv4} from 'uuid';
 
 
