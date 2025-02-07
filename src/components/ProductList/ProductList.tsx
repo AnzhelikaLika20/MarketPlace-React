@@ -12,7 +12,7 @@ const ProductList: React.FC<IProductListProps> = () => {
     const navigate = useNavigate();
 
     const [currentPage, setCurrentPage] = React.useState(1);
-    const itemsPerPage = 10;
+    const itemsPerPage = 16;
     const pageCount = Math.ceil(products.length / itemsPerPage);
 
     const displayedProducts = products.slice(
