@@ -1,4 +1,4 @@
-import {createSlice, PayloadAction} from '@reduxjs/toolkit';
+import {createSelector, createSlice, PayloadAction} from '@reduxjs/toolkit';
 
 export interface Product {
     id: string;
@@ -44,3 +44,8 @@ const productsSlice = createSlice({
 export const {addProduct, removeProduct, updateProduct, setProducts} = productsSlice.actions;
 export default productsSlice.reducer;
 export const selectAllProducts = (state: { products: ProductsState }) => state.products.products;
+export const selectProductById = (id: string | undefined) =>
+    createSelector(
+        [selectAllProducts],
+        (products) => products.find(product => product.id === id)
+    );

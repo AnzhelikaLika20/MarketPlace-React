@@ -1,16 +1,27 @@
 import React, {useEffect, useState} from 'react';
+import {BrowserRouter as Router, Route, Routes, useLocation} from 'react-router-dom';
+import {useDispatch} from "react-redux";
 import ProductList from './components/ProductList/ProductList';
+import ProductDetails from './components/ProductDetails/ProductDetails.tsx';
 import Sidebar from './components/SideBar/SideBar';
 import NavigationBar from './components/NavigationBar/NavigationBar';
-import {products} from "./data/products.ts";
-import {addProduct} from "./types/Product.ts";
-import {useDispatch} from "react-redux";
-import AddProductModal from "./components/AddProductModal/AddProductModal.tsx";
+import AddProductModal from './components/AddProductModal/AddProductModal';
+import {products} from "./data/products";
+import {addProduct} from "./types/Product";
 
 const App: React.FC = () => {
     const [sidebarOpen, setSidebarOpen] = useState(false);
     const [filteredProducts, setFilteredProducts] = useState(products);
     const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
+
+    const location = useLocation();
+
+    const dispatch = useDispatch();
+    useEffect(() => {
+        products.forEach(product => {
+            dispatch(addProduct(product));
+        });
+    }, [dispatch]);
 
     const handleModalOpen = () => {
         setIsCreateModalOpen(true);
@@ -20,17 +31,7 @@ const App: React.FC = () => {
         setIsCreateModalOpen(false);
     };
 
-
     const toggleSidebar = () => setSidebarOpen(!sidebarOpen);
-
-    const dispatch = useDispatch();
-    useEffect(() => {
-
-        products.forEach(product => {
-            dispatch(addProduct(product));
-        });
-
-    }, [dispatch]);
 
     return (
         <div style={{display: 'flex'}}>
@@ -43,11 +44,15 @@ const App: React.FC = () => {
             <div style={{flex: 1}}>
                 <NavigationBar toggleSidebar={toggleSidebar}/>
                 <div style={{padding: '1rem'}}>
-                    <button onClick={handleModalOpen} style={{marginBottom: '1rem'}}>
-                        Добавить товар
-                    </button>
-                    <ProductList products={filteredProducts} onProductClick={() => {
-                    }}/>
+                    {location.pathname === '/' && (
+                        <button onClick={handleModalOpen} style={{marginBottom: '1rem'}}>
+                            Добавить товар
+                        </button>
+                    )}
+                    <Routes>
+                        <Route path="/" element={<ProductList products={filteredProducts}/>}/>
+                        <Route path="/products/:id" element={<ProductDetails/>}/>
+                    </Routes>
                 </div>
             </div>
             <AddProductModal open={isCreateModalOpen} handleClose={handleCreateModalClose}/>
@@ -55,5 +60,10 @@ const App: React.FC = () => {
     );
 };
 
+const AppWrapper: React.FC = () => (
+    <Router>
+        <App/>
+    </Router>
+);
 
-export default App;
+export default AppWrapper;
