@@ -1,12 +1,7 @@
 import React, {useState} from 'react';
-import {useDispatch} from 'react-redux';
 import {Button, Dialog, DialogActions, DialogContent, DialogTitle, TextField} from '@mui/material';
-import {addProduct} from '../../store/modules/products/ProductSlice.ts';
-import {v4 as uuidv4} from 'uuid';
-
 
 const AddProductModal: React.FC<{ open: boolean; handleClose: () => void; }> = ({open, handleClose}) => {
-    const dispatch = useDispatch();
 
     const [productData, setProductData] = useState({
         name: '',
@@ -54,15 +49,28 @@ const AddProductModal: React.FC<{ open: boolean; handleClose: () => void; }> = (
         return !Object.values(newErrors).some(error => error);
     };
 
-    const handleSubmit = () => {
+    const handleSubmit = async () => {
         if (validateForm()) {
-            const productId = uuidv4()
-            dispatch(addProduct({
-                ...productData,
-                id: productId,
-                quantity: parseInt(productData.quantity, 10),
-                price: parseFloat(productData.price),
-            }));
+            try {
+                const response = await fetch('http://localhost:5000/api/products', {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify({
+                        ...productData,
+                        quantity: parseInt(productData.quantity, 10),
+                        price: parseFloat(productData.price),
+                    }),
+                });
+                console.log(response);
+
+                if (!response.ok) {
+                    console.log("keke error")
+                    console.log(response);
+                    throw new Error('Failed to add product');
+                }
+            } catch (error) {
+                console.error('Error adding product:', error);
+            }
             handleClose();
         }
     };
@@ -132,7 +140,7 @@ const AddProductModal: React.FC<{ open: boolean; handleClose: () => void; }> = (
             <DialogActions>
                 <Button onClick={handleClose} color="primary">Отмена</Button>
                 <Button onClick={handleSubmit} color="secondary">Сохранить</Button>
-            </DialogActions>
+            </DialogActions>x
         </Dialog>
     );
 };
