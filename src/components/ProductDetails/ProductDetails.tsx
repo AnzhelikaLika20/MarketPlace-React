@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
-import { Box, Typography, Paper, Button } from '@mui/material';
+import React, {useEffect, useState} from 'react';
+import {useNavigate, useParams} from 'react-router-dom';
+import {Box, Button, Paper, Typography} from '@mui/material';
 import EditProductModal from '../EditProductModal/EditProductModal';
-import { Product } from '../../types/Product';
+import {Product} from '../../types/Product';
 
 const ProductDetails: React.FC = () => {
-    const { id } = useParams<{ id: string }>();
+    const {id} = useParams<{ id: string }>();
     const navigate = useNavigate();
     const [product, setProduct] = useState<Product | null>(null);
     const [isLoading, setIsLoading] = useState<boolean>(true);
@@ -66,7 +66,7 @@ const ProductDetails: React.FC = () => {
     }
 
     return (
-        <Paper elevation={3} sx={{ maxWidth: 800, margin: '20px auto', padding: 3 }}>
+        <Paper elevation={3} sx={{maxWidth: 800, margin: '20px auto', padding: 3}}>
             <Box mb={2}>
                 <Typography variant="h4">{product.name}</Typography>
                 <Typography variant="body1"><strong>Категория:</strong> {product.category || 'Нет данных'}</Typography>
@@ -76,7 +76,7 @@ const ProductDetails: React.FC = () => {
             <Button variant="contained" color="primary" onClick={handleEditClick}>
                 Редактировать товар
             </Button>
-            <Button variant="contained" color="error" onClick={handleDelete} sx={{ ml: 2 }}>
+            <Button variant="contained" color="error" onClick={handleDelete} sx={{ml: 2}}>
                 Удалить товар
             </Button>
             <EditProductModal

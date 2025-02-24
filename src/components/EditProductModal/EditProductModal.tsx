@@ -1,10 +1,11 @@
 import React, {useEffect, useState} from 'react';
-import {Product} from '../../types/Product';
-import {EditProductModalProps} from './types';
 import {Button, Dialog, DialogActions, DialogContent, DialogTitle, TextField} from '@mui/material';
+import {EditProductModalProps} from './types';
 
 const EditProductModal: React.FC<EditProductModalProps> = ({open, product, handleClose, onSave}) => {
-    const [formValues, setFormValues] = useState<Product>(product);
+    const [formValues, setFormValues] = useState(product);
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState<string | null>(null);
 
     useEffect(() => {
         setFormValues(product);
@@ -14,13 +15,35 @@ const EditProductModal: React.FC<EditProductModalProps> = ({open, product, handl
         const {name, value} = e.target;
         setFormValues(prevValues => ({
             ...prevValues,
-            [name]: name === 'price' ? parseFloat(value) : value
+            [name]: name === 'price' || name === 'quantity' ? parseFloat(value) : value
         }));
     };
 
-    const handleSubmit = (e: React.FormEvent) => {
+    const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-        onSave(formValues);
+        setLoading(true);
+        setError(null);
+
+        try {
+            const response = await fetch(`http://localhost:5000/api/products/${formValues._id}`, {
+                method: 'PUT',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify(formValues),
+            });
+
+            if (!response.ok) {
+                throw new Error('Failed to update product');
+            }
+
+            const updatedProduct = await response.json();
+            onSave(updatedProduct);
+            handleClose();
+        } catch (err) {
+            setError((err as Error).message);
+            console.error('Error updating product:', err);
+        } finally {
+            setLoading(false);
+        }
     };
 
     return (
@@ -42,7 +65,7 @@ const EditProductModal: React.FC<EditProductModalProps> = ({open, product, handl
                         fullWidth
                         margin="normal"
                         onChange={handleChange}
-                        value={formValues.name}
+                        value={formValues.category}
                     />
                     <TextField
                         label="Описание"
@@ -50,7 +73,7 @@ const EditProductModal: React.FC<EditProductModalProps> = ({open, product, handl
                         fullWidth
                         margin="normal"
                         onChange={handleChange}
-                        value={formValues.description}
+                        value={formValues.description || ''}
                     />
                     <TextField
                         label="Количество"
@@ -59,16 +82,15 @@ const EditProductModal: React.FC<EditProductModalProps> = ({open, product, handl
                         fullWidth
                         margin="normal"
                         onChange={handleChange}
-                        value={formValues.quantity}
+                        value={formValues.quantity || 0}
                     />
                     <TextField
                         label="Единица измерения"
                         name="unit"
-                        type="number"
                         fullWidth
                         margin="normal"
                         onChange={handleChange}
-                        value={formValues.unit}
+                        value={formValues.unit || ''}
                     />
                     <TextField
                         label="Цена"
@@ -77,16 +99,17 @@ const EditProductModal: React.FC<EditProductModalProps> = ({open, product, handl
                         fullWidth
                         margin="normal"
                         onChange={handleChange}
-                        value={formValues.price}
+                        value={formValues.price || 0}
                     />
+                    {error && <p style={{color: 'red'}}>{error}</p>}
                 </form>
             </DialogContent>
             <DialogActions>
-                <Button onClick={handleClose} color="secondary">
+                <Button onClick={handleClose} color="secondary" disabled={loading}>
                     Отмена
                 </Button>
-                <Button onClick={handleSubmit} color="primary" type="submit">
-                    Сохранить
+                <Button onClick={handleSubmit} color="primary" type="submit" disabled={loading}>
+                    {loading ? 'Сохранение...' : 'Сохранить'}
                 </Button>
             </DialogActions>
         </Dialog>
