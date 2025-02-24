@@ -1,15 +1,35 @@
-import React from 'react';
-import ProductCard from '../Card/Card';
+import React, {useEffect, useState} from 'react';
 import {useNavigate} from 'react-router-dom';
+import Pagination from '@mui/material/Pagination';
+import Box from '@mui/material/Box';
+import ProductCard from '../Card/Card';
 import {ProductListContainer} from './styles';
-import {Box, Pagination} from '@mui/material';
-import {IProductListProps} from "./types.ts";
+import {Product} from "../../types/Product.ts";
 
-const ProductList: React.FC<IProductListProps> = ({products}) => {
+const ProductList: React.FC = () => {
+    const [products, setProducts] = useState<Product[]>([]);
+    const [currentPage, setCurrentPage] = useState(1);
+    const itemsPerPage = 15;
+
     const navigate = useNavigate();
 
-    const [currentPage, setCurrentPage] = React.useState(1);
-    const itemsPerPage = 15;
+    useEffect(() => {
+        const fetchProducts = async () => {
+            try {
+                const response = await fetch('http://localhost:5000/api/products');
+                if (!response.ok) {
+                    throw new Error('Failed to fetch products');
+                }
+                const data = await response.json();
+                setProducts(data);
+            } catch (error) {
+                console.error('Error fetching products:', error);
+            }
+        };
+
+        fetchProducts();
+    }, []);
+
     const pageCount = Math.ceil(products.length / itemsPerPage);
 
     const displayedProducts = products.slice(
@@ -30,9 +50,9 @@ const ProductList: React.FC<IProductListProps> = ({products}) => {
             <ProductListContainer>
                 {displayedProducts.map((product) => (
                     <ProductCard
-                        key={product.id}
+                        key={product._id}
                         product={product}
-                        onClick={() => handleProductClick(product.id)}
+                        onClick={() => handleProductClick(product._id)}
                     />
                 ))}
             </ProductListContainer>
