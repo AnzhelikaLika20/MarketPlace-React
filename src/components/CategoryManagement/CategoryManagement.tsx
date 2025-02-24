@@ -1,6 +1,4 @@
-import React, {useState} from 'react';
-import {useDispatch, useSelector} from 'react-redux';
-import {addCategory, deleteCategory, updateCategory} from '../../store/modules/categories/CategorySlice.ts';
+import React, {useEffect, useState} from 'react';
 import {
     Box,
     Button,
@@ -18,43 +16,90 @@ import {
 } from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
-import {RootState} from "../../store/store";
 import {Category} from "../../types/Category.ts";
 
+const API_URL = 'http://localhost:5000/api/categories';
+
 const CategoryManagement: React.FC = () => {
+    const [categories, setCategories] = useState<Category[]>([]);
     const [isModalOpen, setModalOpen] = useState<boolean>(false);
     const [currentCategory, setCurrentCategory] = useState<Category | null>(null);
     const [name, setName] = useState<string>('');
-    const dispatch = useDispatch();
-    const categories = useSelector((state: RootState) => state.categories.categories);
+    const [loading, setLoading] = useState<boolean>(false);
+    const [error, setError] = useState<string | null>(null);
 
-    const openModal = (category: Category | null = null): void => {
+    // Получение категорий
+    const fetchCategories = async () => {
+        try {
+            setLoading(true);
+            const response = await fetch(API_URL);
+            if (!response.ok) throw new Error('Failed to fetch categories');
+            const data = await response.json();
+            setCategories(data);
+        } catch (err) {
+            setError((err as Error).message);
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    useEffect(() => {
+        fetchCategories();
+    }, []);
+
+    // Открытие модалки
+    const openModal = (category: Category | null = null) => {
         setCurrentCategory(category);
         setName(category ? category.name : '');
         setModalOpen(true);
     };
 
-    const closeModal = (): void => {
+    // Закрытие модалки
+    const closeModal = () => {
         setModalOpen(false);
         setCurrentCategory(null);
     };
 
-    const handleAddOrEdit = (): void => {
+    // Добавление/обновление категории
+    const handleAddOrEdit = async () => {
         if (!name.trim()) {
             alert('Название категории не может быть пустым');
             return;
         }
-        if (currentCategory) {
-            dispatch(updateCategory({...currentCategory, name}));
-        } else {
-            dispatch(addCategory({id: new Date().toISOString(), name}));
+
+        try {
+            const method = currentCategory ? 'PUT' : 'POST';
+            const url = currentCategory ? `${API_URL}/${currentCategory._id}` : API_URL;
+
+            const response = await fetch(url, {
+                method,
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({name}),
+            });
+
+            if (!response.ok) {
+                throw new Error('Failed to save category');
+            }
+
+            await fetchCategories(); // Обновление списка после сохранения
+            closeModal();
+        } catch (err) {
+            console.error('Error saving category:', err);
         }
-        closeModal();
     };
 
-    const handleDelete = (id: string): void => {
+    // Удаление категории
+    const handleDelete = async (id: string) => {
         if (window.confirm('Вы уверены, что хотите удалить эту категорию?')) {
-            dispatch(deleteCategory(id));
+            try {
+                const response = await fetch(`${API_URL}/${id}`, {method: 'DELETE'});
+                if (!response.ok) {
+                    throw new Error('Failed to delete category');
+                }
+                await fetchCategories();
+            } catch (err) {
+                console.error('Error deleting category:', err);
+            }
         }
     };
 
@@ -64,6 +109,9 @@ const CategoryManagement: React.FC = () => {
             <Button variant="contained" onClick={() => openModal()} color="primary" sx={{mb: 2}}>
                 Добавить категорию
             </Button>
+
+            {loading && <Typography>Загрузка категорий...</Typography>}
+            {error && <Typography color="error">{error}</Typography>}
 
             <TableContainer component={Paper}>
                 <Table>
@@ -76,7 +124,7 @@ const CategoryManagement: React.FC = () => {
                     <TableBody>
                         {categories.length > 0 ? (
                             categories.map((category) => (
-                                <TableRow key={category.id}>
+                                <TableRow key={category._id}>
                                     <TableCell component="th" scope="row">
                                         {category.name}
                                     </TableCell>
@@ -84,7 +132,7 @@ const CategoryManagement: React.FC = () => {
                                         <IconButton edge="end" onClick={() => openModal(category)}>
                                             <EditIcon/>
                                         </IconButton>
-                                        <IconButton edge="end" onClick={() => handleDelete(category.id)}>
+                                        <IconButton edge="end" onClick={() => handleDelete(category._id)}>
                                             <DeleteIcon/>
                                         </IconButton>
                                     </TableCell>
